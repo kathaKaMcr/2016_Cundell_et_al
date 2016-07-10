@@ -1,0 +1,77 @@
+source:         /path/to/data/table.txt
+sink:           /path/to/folder/storing/processed/data
+headerpattern:  _MS\d\d\d\d_\d\d
+sampletypes:
+  Supernatant: S_MS\d\d\d\d_\d\d
+  Pellet:      P_MS\d\d\d\d_\d\d
+conditions:
+  - Control
+  - B55
+  - GWL
+crossmixes:
+  - CM_Con_H_B55_L_
+  - CM_Con_L_B55_H_
+  - CM_Con_H_GWL_L_
+  - CM_Con_L_GWL_H_
+  - CM_B55_H_GWL_L_
+  - CM_B55_L_GWL_H_
+experiment_ids:
+   - P_MS0009_01
+   - P_MS0009_02
+   - P_MS0016_01
+   - P_MS0019_01
+   - P_MS0021_01
+   - S_MS0006_01
+   - S_MS0006_02
+   - S_MS0006_03
+   - S_MS0008_01
+   - S_MS0008_02
+   - S_MS0009_01
+   - S_MS0016_01
+   - S_MS0016_02
+   - S_MS0016_03
+   - S_MS0021_01
+   - S_MS0021_02
+   - S_MS0021_03
+timepoints:
+  hdr:
+    - T0
+    - T2_5
+    - T5
+    - T7_5
+    - T10
+    - T20
+    - T30
+    - T45
+  values:
+    - 0
+    - 2.5
+    - 5
+    - 7.5
+    - 10
+    - 20
+    - 30
+    - 45
+
+timecourses:
+  Control: (findfirst(names(S), :Control_0)):(findfirst(names(S), :Control_45))
+  B55: (findfirst(names(S), :B55_0)):(findfirst(names(S), :B55_45))
+  GWL: (findfirst(names(S), :GWL_0)):(findfirst(names(S), :GWL_45))
+errors:
+  Control: (findfirst(names(S), :error_Control_0)):(findfirst(names(S), :error_Control_45))
+  B55: (findfirst(names(S), :error_B55_0)):(findfirst(names(S), :error_B55_45))
+  GWL: (findfirst(names(S), :error_GWL_0)):(findfirst(names(S), :error_GWL_45))
+colors:
+  Control: "#5fbdff"
+  B55: "#ffc900"
+  GWL: "#5fbd00"
+
+
+include:
+  - custom_code/custom.jl
+  - custom_code/preprocess.jl
+  - custom_code/extract.jl
+  - custom_code/cleaning.jl
+  - custom_code/modelling.jl
+  - custom_code/plot.jl
+  - custom_code/filter_substrates.jl

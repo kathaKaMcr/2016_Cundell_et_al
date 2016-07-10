@@ -1,0 +1,2 @@
+stream:
+  - specs.source-{preprocess}->preprocessed.csv
